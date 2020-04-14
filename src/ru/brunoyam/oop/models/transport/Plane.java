@@ -16,7 +16,7 @@ public class Plane extends Transport {
     }
 
     Passenger[] planePassengers = new Passenger[1];
-    
+
     /**
      * Конструктор, заполняющий все поля.
      *

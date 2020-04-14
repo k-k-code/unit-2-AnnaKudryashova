@@ -5,8 +5,8 @@ import ru.brunoyam.oop.Appilcation;
 import java.util.Arrays;
 
 public class Compartment extends Train {
-    int berthNumber; //к-во мест в купе
-    String comfortClass; // класс комфорта
+    private int berthNumber; //к-во мест в купе
+    private String comfortClass; // класс комфорта
     Passenger[] trainPassengers = new Passenger[2]; //массив пассажиров,купивших билет на поезд
 
 
