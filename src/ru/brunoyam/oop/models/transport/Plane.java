@@ -1,5 +1,5 @@
 package ru.brunoyam.oop.models.transport;
-
+import ru.brunoyam.oop.models.Passenger;
 import java.util.Arrays;
 
 /**
@@ -10,14 +10,17 @@ public class Plane extends Transport {
      * Багаж включен в стоимость билета
      */
     private boolean luggage;
+    private int seatsNumber;
+    private Passenger[] passengers = new Passenger[seatsNumber];
 
     public boolean isLuggage() {
         return luggage;
     }
 
-    Passenger[] planePassengers = new Passenger[1];
-
-    /**
+    public Passenger[] getPassengers() {
+        return passengers;
+    }
+       /**
      * Конструктор, заполняющий все поля.
      *
      * @param travelTime  время в пути
@@ -26,18 +29,27 @@ public class Plane extends Transport {
      * @param luggage     багаж включен в стоимость билета
      */
     public Plane(int travelTime, int seatsNumber,
-                 int cost, boolean luggage, Passenger[] planePassengers) {
+                 int cost, boolean luggage) {
+
         super(travelTime, seatsNumber, cost);
         this.luggage = luggage;
-        this.planePassengers = planePassengers;
     }
-
+    public boolean saleTicket(int seat, Passenger passenger) {
+        for(int i=0; i < passengers.length; i++){
+            if((passengers[i] == null) && (seat > 0 && seat < seatsNumber)) {
+                passengers[i] = passenger;
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public String toString() {
-        String planeDescription = super.toString() + "particular: ";
-        return planeDescription + "Plane{" +
-                "luggage=" + luggage +
-                ", planePassengers=" + Arrays.toString(planePassengers) +
+        return "Plane{" +
+                "SeatsNumber=" + getSeatsNumber() +
+                ", luggage=" + isLuggage() +
+                ", passengers=" + Arrays.toString(passengers) +
+                ", cost=" + getCost() +
                 '}';
     }
 }

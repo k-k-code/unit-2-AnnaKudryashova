@@ -1,27 +1,30 @@
 package ru.brunoyam.oop.models.transport;
-
+import ru.brunoyam.oop.models.Passenger;
 import java.util.Arrays;
 
-public class Cabin extends Ship {
-    private int seatsCabinNumber; // к-во мест в каюте
-    private String comfortClass; // класс комфорта
-    Passenger[] shipPassengers = new Passenger[3]; // массив пассажиров с билетом на корабль
-
-    public Cabin(int travelTime, int seatsNumber, int cost, Cabin[] cabins, int seatsCabinNumber,
-                 String comfortClass, Passenger[] shipPassengers) {
-        super(travelTime, seatsNumber, cost, cabins);
-        this.seatsCabinNumber = seatsCabinNumber;
-        this.comfortClass = comfortClass;
-        this.shipPassengers = shipPassengers;
+public class Cabin{
+    private final CabinType type;
+    private final Passenger[] passengers;
+    public Cabin(CabinType type) {
+        this.type = type;
+        passengers = new Passenger[type.getSeatsNumber()];
     }
-
+    public boolean placePassenger(Passenger passenger) {
+        for(int i=0; i < passengers.length; i++){
+            if(passengers[i] == null) {
+                passengers[i] = passenger;
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public String toString() {
-        String shipDescription = super.toString() + "particular: ";
-        return shipDescription + "Cabin{" +
-                "seatsCabinNumber=" + seatsCabinNumber +
-                ", comfortClass='" + comfortClass + '\'' +
-                ", shipPassengers=" + Arrays.toString(shipPassengers) +
+        return "Cabin{" +
+                "cabinSeatsNumber=" + type.getSeatsNumber() +
+                ", cabinComfortClass=" + type.name() +
+                ", passengers=" + Arrays.toString(passengers) +
+                ", cost=" + type.getCost() +
                 '}';
     }
 }

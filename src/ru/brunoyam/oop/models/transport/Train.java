@@ -1,15 +1,26 @@
 package ru.brunoyam.oop.models.transport;
+import ru.brunoyam.oop.models.Passenger;
+
+import java.util.Arrays;
 
 public class Train extends Transport {
-    Compartment[] compartments = new Compartment[10]; // массив купе
+    private Compartment[] compartments = {new Compartment(CompartmentType.STANDARD), new Compartment(CompartmentType.SV), new Compartment(CompartmentType.LUX)}; // массив купе
 
-    public Compartment[] getCompartment() {
-        return compartments;
-    }
-
-    public Train(int travelTime, int seatsNumber,
-                 int cost, Compartment[] compartments) {
+    public Train(int travelTime, int seatsNumber, int cost) {
         super(travelTime, seatsNumber, cost);
-        this.compartments = compartments;
+    }
+    public boolean saleTicket(int compartmentNumber, Passenger passenger) {
+        if (compartmentNumber < 0 || compartmentNumber >= compartments.length) {
+            return false;
+        } else {
+            return compartments[compartmentNumber].placePassenger(passenger);
+        }
+    }
+    public Compartment[] getCompartments() {return compartments;}
+    @Override
+    public String toString() {
+        return "Train {" +
+                Arrays.toString(compartments) +
+                '}';
     }
 }
