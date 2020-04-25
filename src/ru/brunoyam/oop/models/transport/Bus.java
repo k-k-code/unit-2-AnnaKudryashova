@@ -1,68 +1,56 @@
 package ru.brunoyam.oop.models.transport;
+import ru.brunoyam.oop.models.Passenger;
+
+import java.util.Arrays;
 
 /**
  * Автобус прикрепленный к определенному маршруту.
  */
 public class Bus extends Transport {
-    /**
-     * Наличие туалета в автобусе
-     */
-    private boolean hasToilet;
-    /**
-     * Количество остановок на маршруте
-     */
-    private int stopsNumber;
 
-    /**
-     * Конструктор заполняющий все поля
-     * @param hasToilet наличие туалет
-     * @param stopsNumber количество остановок на маршруте
-     * @param travelTime время в пути
-     * @param seatsNumber количество мест
-     * @param cost стоимость билета
-     */
+    private boolean hasToilet;
+    private int stopsNumber;
+    private int seatsNumber;
+    private Passenger[] passengers = new Passenger[seatsNumber];
+
     public Bus(boolean hasToilet, int stopsNumber,
                int travelTime, int seatsNumber, int cost) {
-
         super(travelTime, seatsNumber, cost);
         this.hasToilet = hasToilet;
         this.stopsNumber = stopsNumber;
     }
+    public boolean saleTicket(int seat, Passenger passenger) {
+        for(int i=0; i < passengers.length; i++){
+            if((passengers[i] == null) && (seat > 0 && seat < seatsNumber)) {
+                passengers[i] = passenger;
+                return true;
+            }
+        }
+        return false;
+    }
 
-    /**
-     * Геттер для поля {@link #hasToilet hasToilet}
-     * @return наличие туалета
-     */
     public boolean isHasToilet() {
         return hasToilet;
     }
-
-    /**
-     * Геттер для поля {@link #stopsNumber stopsNumber}
-     * @return количество остановок
-     */
-    public int getStopsNumber() {
+       public int getStopsNumber() {
         return stopsNumber;
     }
-
-    /**
-     * Сеттер для поля {@link @stopsNumber stopsNumber}
-     * @param stopsNumber количество остановок
-     */
-    public void setStopsNumber(int stopsNumber) {
-        this.stopsNumber = stopsNumber;
+        public Passenger[] getPassengers() {
+        return passengers;
     }
 
-    /**
-     * Возвращает текстовое представление объекта
-     * @return текстовое представление объекта
-     */
+    @Override
+    public int getSeatsNumber() {
+        return seatsNumber;
+    }
+
     @Override
     public String toString() {
-        String transportDescription = super.toString() + " particular: ";
-        return transportDescription + "Bus{" +
-                "hasToilet=" + hasToilet +
-                ", stopsNumber=" + stopsNumber +
+        return "Bus{" +
+                "SeatsNumber=" + getSeatsNumber() +
+                ", hasToilet=" + isHasToilet() +
+                ", passengers=" + Arrays.toString(passengers) +
+                ", cost=" + getCost() +
                 '}';
     }
 }
